@@ -1,0 +1,41 @@
+<dashboard theme="dark">
+  <label>Cert Overview</label>
+  <description>Overview of Cert Expirations</description>
+  <row>
+    <panel>
+      <table>
+        <title>Current Website(s) Expirations Being Tracked</title>
+        <search>
+          <query>| inputlookup websites.csv |rex field=url "(?&lt;url&gt;\w.+)\:(?&lt;port&gt;\d+)$"</query>
+          <earliest>-15m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="rowNumbers">true</option>
+        <format type="color" field="port">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <table>
+        <title>General Cert Expirations</title>
+        <search>
+          <query>| inputlookup website_expirations.csv</query>
+          <earliest>-15m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="rowNumbers">true</option>
+        <format type="color" field="url">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+</dashboard>
