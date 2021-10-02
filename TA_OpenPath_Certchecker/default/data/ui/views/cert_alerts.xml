@@ -1,0 +1,27 @@
+<dashboard theme="dark">
+  <label>Certification Alerts</label>
+  <description>Certification Alerts: Looks at certs about to expire</description>
+  <row>
+    <panel>
+      <table>
+        <search>
+          <query>|inputlookup website_expirations.csv | eval cert_expiration = strptime('cert_expiration', "%b %d %T %Y") |eval current_time=now(),"Days Until Expiration"=(cert_expiration-current_time)/86400 |convert ctime(cert_expiration) | convert ctime(current_time) |rename cert_expiration as "Cert Expiration", url as URL, port as Port, current_time as "Current Time"</query>
+          <earliest>-15m</earliest>
+          <latest>now</latest>
+        </search>
+        <option name="drilldown">none</option>
+        <format type="number" field="Days Until Expiration">
+          <option name="unit">Days Until Expiration</option>
+        </format>
+        <format type="color" field="Days Until Expiration">
+          <colorPalette type="list">[#DC4E41,#DC4E41,#F1813F,#F8BE34,#B6C75A,#53A051]</colorPalette>
+          <scale type="threshold">0,30,90,120,240</scale>
+        </format>
+        <format type="color" field="Port">
+          <colorPalette type="sharedList"></colorPalette>
+          <scale type="sharedCategory"></scale>
+        </format>
+      </table>
+    </panel>
+  </row>
+</dashboard>

@@ -1,0 +1,14 @@
+<nav search_view="search" color="#5CC05C">
+  <collection label="Cert Validations">
+  <view name="cert_overview" />
+  <view name="cert_alerts" />
+  </collection>
+  <collection label="Splunk Default Tabs">
+  <view name="search" default="true" />
+  <view name="analytics_workspace" />
+  <view name="datasets" />
+  <view name="reports" />
+  <view name="alerts" />
+  <view name="dashboards" />
+  </collection>
+</nav>
